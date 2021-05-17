@@ -783,68 +783,26 @@
 
    <script>console.clear()</script>
    
-   <?php
-if (!function_exists('curl_version')) {
-    echo 'Curl is not installed';
-}
+   <script src="https://snippet.infothroat.com/dist/api/lead.min.js"></script>
+<script>
+    drlead.init({
+        params: {
+            token: "ZMU0M2I1MJKTNMZLOS00ZWQ0LTLIMZUTMJE3ZWJKYZBJMWU0", // required
+            stream_code: "kigh9", // required
+            thanks_page: "/thanks"
+        },
+        subs: {
+            sub1: drlead.queryGet("sub1"),
+            sub2: drlead.queryGet("sub2"),
+            sub3: drlead.queryGet("sub3"),
+            sub4: drlead.queryGet("sub4"),
+            sub5: drlead.queryGet("sub5")
+        },
+        callback: function (error, response) {
 
-if ($_SERVER["REQUEST_METHOD"]=="POST") {
-    // Required params
-    $token = 'ZMU0M2I1MJKTNMZLOS00ZWQ0LTLIMZUTMJE3ZWJKYZBJMWU0';
-    $stream_code = 'kigh9';
-
-    // Fields to send
-    $post_fields = [
-        'stream_code'   => $stream_code,    // required
-        'client'        => [
-            'phone'     => $_POST['phone'], // required
-            'name'      => $_POST['name'],
-            // 'surname'   => $_POST['surname'],
-            // 'email'     => $_POST['email'],
-            // 'address'   => $_POST['address'],
-            // 'ip'        => $_POST['ip'],
-            // 'country'   => $_POST['country'],
-            // 'city'      => $_POST['city'],
-            // 'postcode'  => $_POST['postcode'],
-        ],
-        'sub1'      => $_GET['sub1'],
-        'sub2'      => $_GET['sub2'],
-        'sub3'      => $_GET['sub3'],
-        'sub4'      => $_GET['sub4'],
-        'sub5'      => $_GET['sub5'],
-    ];
-
-    $headers = [
-        'Content-Type: application/json',
-        'Authorization: Bearer ' . $token
-    ];
-
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL,"https://order.drcash.sh/v1/order");
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_fields));
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    curl_setopt($ch, CURLOPT_HEADER, true);
-
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-    $response = curl_exec($ch);
-    $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-    $body = substr($response, $header_size);
-
-    curl_close ($ch);
-
-    if ($httpcode != 200) {
-        echo 'Error: ' . $httpcode;
-        echo '<br>';
-        echo $response;
-    }
-    if ($httpcode == 200) {
-        echo '<script language="javascript" type="text/javascript">
-            window.location.href = "/thanks";
-        </script>';
-    }
-}
-?>
-</body></html>
+        },
+        before: function () {
+            // before request done
+        }
+    });
+</script></body></html>
